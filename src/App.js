@@ -1,10 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
+import { useEffect } from 'react';
+import ShowProducts from '../src/Components/ShowProducts/ShowProducts'
+import CreateStore from './Components/CreateStore/CreateStore';
+
 
 function App() {
+  
   return (
     <div className="App">
-     <h1>Create new</h1>
+    {/* <ShowProducts></ShowProducts> */}
+    <CreateStore></CreateStore>
     </div>
   );
 }
