@@ -5,6 +5,8 @@ import { MdOutlineEditLocation } from "react-icons/md";
 import { MdCategory } from "react-icons/md";
 import { MdCurrencyExchange } from "react-icons/md";
 import { MdOutlineEmail } from "react-icons/md";
+import axios from 'axios';
+import { Bounce, ToastContainer, toast } from 'react-toastify';
 
 const CreateStore = () => {
     const [storeName, setStoreName] = useState("");
@@ -91,33 +93,38 @@ const CreateStore = () => {
         }
         console.log(data)
         if (!isValidDomain) {
-            fetch('https://example.com/api/data', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    key: 'value'
-                })
+
+            axios.post('https://interview-task-green.vercel.app/task/stores/create', {
+                name: name,
+                currency: currency,
+                country: location,
+                domain: domain,
+                category: category,
+                email: email
             })
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .catch(error => console.error(error));
-            console.log("post")
+                .then(function (response) {
+                    toast(response.data.message)
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            setIsValidName(false)
+            setIsValidEmail(true)
+            setErrorDominMegs(false)
+
+
         }
     }
-    console.log("errorDominMegs", errorDominMegs)
-    console.log("isValidEmail", isValidEmail)
-    console.log("isValidName", isValidName)
-    console.log(isValidDomain.length)
+
     return (
         <div>
-            <form style={{ position:'fixed',top:"0px",bottom:'0px', left:'0px',right:'0px' , margin:'auto' , overflow:'auto'}} className=' md:w-[650px] lg:w-[950px] lg:h-[710px] w-[1200px] xl:h-[710px] md:h-[700px] sm:h-[750px] h-[700px] rounded-sm shadow-md bg-slate-100  mx-auto p-5' action={hanldeSubmit}>
+            <form style={{ position: 'fixed', top: "0px", bottom: '0px', left: '0px', right: '0px', margin: 'auto', overflow: 'auto' }} className=' md:w-[650px] lg:w-[950px] lg:h-[710px] w-[1200px] xl:h-[710px] md:h-[700px] sm:h-[750px] h-[700px] rounded-sm shadow-md bg-slate-100  mx-auto p-5' action={hanldeSubmit}>
                 <h3 className="text-2xl font-semibold mb-5">Create a Store</h3>
-                <div  className="sm:w-full w-3/12">
-                <p className="">Add your basic store information and  complete the setup</p>
+                <div className="sm:w-full w-3/12">
+                    <p className="">Add your basic store information and  complete the setup</p>
                 </div>
-               
+
                 <hr className='mb-5 mt-1' />
 
                 <div className='grid  lg:grid-cols-2 sm:grid-cols-1 p-3'>
@@ -311,6 +318,19 @@ const CreateStore = () => {
 
 
             </form>
+            <ToastContainer
+                position="bottom-left"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+            />
         </div>
     )
 }
