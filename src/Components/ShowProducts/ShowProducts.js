@@ -9,7 +9,12 @@ const ShowProduct = ({ }) => {
     }
     useEffect(() => {
 
-        fetch('https://glore-bd-backend-node-mongo.vercel.app/api/product')
+        fetch('https://glore-bd-backend-node-mongo.vercel.app/api/product', {
+            mode: "cors",
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+            },
+          })
             .then((res) => res.json())
             .then((res) => setProducts(res.data))
     }, [])
