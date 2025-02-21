@@ -10,11 +10,25 @@ console.log(products)
     };
 
     useEffect(() => {
-        fetch("/api/product") // No need for full URL
-            .then((res) => res.json())
+        fetch("https://cors-anywhere.herokuapp.com/https://glore-bd-backend-node-mongo.vercel.app/api/product")
+            .then((res) => {
+                console.log("Response status:", res.status);
+                console.log("Response content-type:", res.headers.get("content-type"));
+    
+                if (!res.ok) {
+                    throw new Error(`HTTP error! Status: ${res.status}`);
+                }
+    
+                if (!res.headers.get("content-type")?.includes("application/json")) {
+                    throw new Error("Response is not JSON. Check API URL.");
+                }
+    
+                return res.json();
+            })
             .then((res) => setProducts(res.data))
             .catch((error) => console.error("Error fetching products:", error));
     }, []);
+    
 
     return (
         <div className="grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-3 p-5 mx-auto">
