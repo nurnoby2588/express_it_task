@@ -14,9 +14,9 @@ function App() {
     <div className="App">
       <Navbar></Navbar>
       <Routes>
-        <Route index element={<ShowProducts />} />
-        <Route path="/createStore" element={<CreateStore />} />
-        <Route path="/createStore/:id" element={<ShowSingleProduct />} />
+        <Route index element={<CreateStore />} />
+        <Route path='/products'  element={<ShowProducts />} />
+        <Route path="/product/:id" element={<ShowSingleProduct />} />
       </Routes>
 
       {/* <ShowProducts></ShowProducts>
