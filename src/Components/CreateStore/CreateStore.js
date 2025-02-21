@@ -118,8 +118,8 @@ const CreateStore = () => {
     }
 
     return (
-        <div>
-            <form style={{ position: 'fixed', top: "0px", bottom: '0px', left: '0px', right: '0px', margin: 'auto', overflow: 'auto' }} className=' md:w-[650px] lg:w-[950px] lg:h-[710px] w-[1200px] xl:h-[710px] md:h-[700px] sm:h-[750px] h-[700px] rounded-sm shadow-md bg-slate-100  mx-auto p-5' action={hanldeSubmit}>
+        <div className='z-10'>
+            <form style={{ margin: 'auto', overflow: 'auto' }} className='z-10  md:w-[650px] lg:w-[950px] lg:h-[710px] w-[1200px] xl:h-[710px] md:h-[700px] sm:h-[750px] h-[600px] rounded-sm shadow-md bg-slate-100  mx-auto p-5' action={hanldeSubmit}>
                 <h3 className="text-2xl font-semibold mb-5">Create a Store</h3>
                 <div className="sm:w-full w-3/12">
                     <p className="">Add your basic store information and  complete the setup</p>
