@@ -9,9 +9,9 @@ import axios from 'axios';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 
 const CreateStore = () => {
-    const [storeName, setStoreName] = useState("");
-    const [domain, setDomain] = useState("");
-    const [email, setEmail] = useState("");
+    const [location, setLocaion] = useState(false);
+    const [currency, setCurrence] = useState(false);
+    const [category, setCategory] = useState(false);
 
     const [isValidName, setIsValidName] = useState(false);
     const [isValidDomain, setIsValidDomain] = useState("");
@@ -23,7 +23,7 @@ const CreateStore = () => {
         const name = e.target.value;
         if (name.length > 2) {
             setIsValidName(false);
-            setStoreName(name)
+
         }
         else {
             setIsValidName(true)
@@ -45,7 +45,6 @@ const CreateStore = () => {
                         }
                         else {
                             setIsValidDomain(res.data.taken)
-                            setDomain(res.data.taken)
                             setErrorDominMegs(true)
 
                         }
@@ -66,7 +65,7 @@ const CreateStore = () => {
 
     const handleEmail = (e) => {
         const email = e.target.value
-        console.log(email)
+     
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         let testEmai = emailRegex.test(email);
         if (!testEmai) {
@@ -88,10 +87,8 @@ const CreateStore = () => {
         const category = formData.get('category');
         const currency = formData.get('currency');
         const email = formData.get('email');
-        const data = {
-            name, domain, location, category, currency, email
-        }
-        console.log(data)
+ 
+
         if (!isValidDomain) {
 
             axios.post('https://interview-task-green.vercel.app/task/stores/create', {
@@ -112,6 +109,9 @@ const CreateStore = () => {
             setIsValidName(false)
             setIsValidEmail(true)
             setErrorDominMegs(false)
+            setCategory(false);
+            setCurrence(false);
+            setLocaion(false);
 
 
         }
@@ -198,8 +198,8 @@ const CreateStore = () => {
                     </div>
                     <div>
                         <div className="pl-3">
-                            {/* <label for="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label> */}
-                            <select name="location" id="location" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit sm:w-2/4 xl:w-full lg:w-11/12 md:w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                           
+                            <select onChange={()=>setLocaion(true)} name="location" id="location" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit sm:w-2/4 xl:w-full lg:w-11/12 md:w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option selected>Choose a country</option>
                                 <option value="Bangladesh">Bangladesh</option>
 
@@ -208,13 +208,7 @@ const CreateStore = () => {
                                 <option value="Germany">Germany</option>
                             </select>
                         </div>
-                        {/* <select name="location" id="location">
-
-                            <option value="Bangladesh">Bangladesh</option>
-                            <option value="Australia">Australia</option>
-                            <option value="Germany">Germany</option>
-                            <option value="Canada">Canada</option>
-                        </select> */}
+                    
                     </div>
                 </div>
 
@@ -235,8 +229,8 @@ const CreateStore = () => {
                     </div>
                     <div>
                         <div className="pl-3">
-                            {/* <label for="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label> */}
-                            <select name="category" id="category" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit sm:w-2/4 xl:w-full lg:w-11/12 md:w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            
+                            <select onChange={()=>setCategory(true)} name="category" id="category" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit sm:w-2/4 xl:w-full lg:w-11/12 md:w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option selected>Choose a category</option>
                                 <option value="Fashion">Fashion</option>
 
@@ -244,13 +238,7 @@ const CreateStore = () => {
 
                             </select>
                         </div>
-                        {/* <select name="category" id="category">
-
-                            <option value="Fashion">Fashion</option>
-                            <option value="Cloth">Cloth</option>
-                            <option value="Germany">Germany</option>
-                            <option value="Canada">Canada</option>
-                        </select> */}
+                     
                     </div>
                 </div>
                 <div className='grid lg:grid-cols-2 p-3'>
@@ -268,18 +256,14 @@ const CreateStore = () => {
                     </div>
                     <div>
                         <div className="pl-3">
-                            {/* <label for="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label> */}
-                            <select name="currency" id="currency" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit sm:w-2/4 xl:w-full lg:w-11/12 md:w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                           
+                            <select onChange={()=>setCurrence(true)} name="currency" id="currency" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit sm:w-2/4 xl:w-full lg:w-11/12 md:w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option selected>Choose a currency</option>
                                 <option value="BDT">BDT(Taka)</option>
 
                             </select>
                         </div>
-                        {/* <select name="currency" id="currency">
-
-                            <option value="BDT">BDT(Taka)</option>
-
-                        </select> */}
+                      
                     </div>
                 </div>
                 <div className='grid lg:grid-cols-2 p-3'>
@@ -310,10 +294,10 @@ const CreateStore = () => {
                     </div>
                 </div>
                 <div className='flex  justify-srart md:justify-center lg:justify-end xl:justify-end p-3'>
-                    <input className={`  px-6 py-2 text-white font-semibold rounded-lg transition duration-300 ${(isValidName == false && isValidEmail == true && errorDominMegs == false)
+                    <input className={`  px-6 py-2 text-white font-semibold rounded-lg transition duration-300 ${(isValidName == false && isValidEmail == true && errorDominMegs == false || location == false || category == false || currency == false)
                         ? "bg-gray-400 cursor-not-allowed"
                         : "bg-blue-500 hover:bg-blue-600"
-                        }`} disabled={isValidName == false && isValidEmail == true && errorDominMegs == false} type="submit" value={"Create store"} />
+                        }`} disabled={isValidName == false && isValidEmail == true && errorDominMegs == false || location == false || category == false || currency == false} type="submit" value={"Create store"} />
                 </div>
 
 
