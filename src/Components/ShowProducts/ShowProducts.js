@@ -9,20 +9,14 @@ console.log(products)
         navigate(`/product/${data}`);
     };
 
+    const PROXY_URL = "https://thingproxy.freeboard.io/fetch/";
+    const API_URL = "https://glore-bd-backend-node-mongo.vercel.app/api/product";
+    
     useEffect(() => {
-        fetch("https://cors-anywhere.herokuapp.com/https://glore-bd-backend-node-mongo.vercel.app/api/product")
+        fetch(PROXY_URL + API_URL)
             .then((res) => {
                 console.log("Response status:", res.status);
-                console.log("Response content-type:", res.headers.get("content-type"));
-    
-                if (!res.ok) {
-                    throw new Error(`HTTP error! Status: ${res.status}`);
-                }
-    
-                if (!res.headers.get("content-type")?.includes("application/json")) {
-                    throw new Error("Response is not JSON. Check API URL.");
-                }
-    
+                if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
                 return res.json();
             })
             .then((res) => setProducts(res.data))
