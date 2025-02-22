@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.4.17"
-  },
-  "proxy": "https://glore-bd-backend-node-mongo.vercel.app"
+  }
+ 
 
 }
